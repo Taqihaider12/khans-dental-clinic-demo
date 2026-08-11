@@ -2571,6 +2571,46 @@ section {
   .booking-content {
     padding: 20px;
   }
+  
+  .booking-card {
+    margin-bottom: 30px;
+  }
+  
+  .step-indicator {
+    font-size: 0;
+    padding: 15px 5px;
+    gap: 0;
+  }
+  
+  .step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+  
+  .booking-footer {
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .footer-summary {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+  
+  .footer-buttons {
+    width: 100%;
+    gap: 10px;
+  }
+  
+  .footer-buttons .btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {

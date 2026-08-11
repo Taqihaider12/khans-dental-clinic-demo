@@ -409,6 +409,17 @@ const initBookingEngine = () => {
       backBtn.style.display = "none";
     }
 
+    const chatbotToggle = document.getElementById("chatbot-toggle");
+    if (chatbotToggle) {
+      if (state.step > 1) {
+        chatbotToggle.style.opacity = "0";
+        chatbotToggle.style.pointerEvents = "none";
+      } else {
+        chatbotToggle.style.opacity = "1";
+        chatbotToggle.style.pointerEvents = "auto";
+      }
+    }
+
     if (state.step === 4) {
       nextBtn.textContent = "Confirm Booking";
     } else {
