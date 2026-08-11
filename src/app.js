@@ -714,10 +714,14 @@ const initChatbot = () => {
       panel.style.display = "none";
       openIcon.style.display = "block";
       closeIcon.style.display = "none";
+      toggleBtn.style.opacity = "1";
+      toggleBtn.style.pointerEvents = "auto";
     } else {
       panel.style.display = "flex";
       openIcon.style.display = "none";
       closeIcon.style.display = "block";
+      toggleBtn.style.opacity = "0";
+      toggleBtn.style.pointerEvents = "none";
       scrollChatToBottom();
       if (textInput) textInput.focus();
     }

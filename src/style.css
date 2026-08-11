@@ -2419,22 +2419,12 @@ section {
     right: 20px;
     width: 52px;
     height: 52px;
-    z-index: 1000;
   }
   .chatbot-panel {
-    bottom: 70px; /* Sits directly above the mobile booking bar */
-    right: 0;
-    width: 100%;
-    height: calc(100% - 70px);
-    border-radius: 0;
-    border: none;
-    z-index: 1001; /* Covers the toggle button completely */
-  }
-  .chatbot-messages {
-    padding: 15px;
-  }
-  .chat-bubble {
-    max-width: 90%;
+    bottom: 150px;
+    right: 20px;
+    width: calc(100% - 40px);
+    height: 400px;
   }
 }
 
