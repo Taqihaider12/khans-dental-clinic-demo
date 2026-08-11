@@ -78,6 +78,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 body {
@@ -383,12 +384,16 @@ section {
   display: none;
   flex-direction: column;
   gap: 6px;
-  width: 30px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 
 .hamburger span {
-  width: 100%;
+  width: 24px;
   height: 2px;
   background-color: #0D1527;
   border-radius: 2px;
@@ -467,7 +472,7 @@ section {
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: clamp(2rem, 6vw, 4rem);
   line-height: 1.1;
   margin-bottom: 24px;
   font-weight: 700;
@@ -2481,16 +2486,31 @@ section {
     left: -100%;
     width: 100%;
     height: calc(100vh - 70px);
-    background-color: var(--color-bg-main);
+    background-color: #0A2540;
     flex-direction: column;
     padding: 40px 30px;
-    gap: 24px;
+    gap: 15px;
     box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     transition: left var(--transition-normal);
+    z-index: 1000;
   }
   
   .nav-menu.active {
     left: 0;
+  }
+
+  .nav-menu .nav-link {
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+  }
+
+  .nav-menu .nav-link:hover,
+  .nav-menu .nav-link:active {
+    color: var(--color-accent);
   }
   
   .hamburger {
@@ -2498,7 +2518,30 @@ section {
   }
   
   .nav-actions {
-    display: none; /* Actions are moved into mobile menu */
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .nav-actions .btn {
+    display: none; /* Hide big book button on mobile navbar */
+  }
+
+  .phone-link {
+    background-color: var(--color-slate-light);
+    border: 1px solid var(--color-slate-medium);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-dark);
+    padding: 0;
+  }
+
+  .phone-link span {
+    display: none; /* Hide phone number text on mobile */
   }
   
   .hero-container {
@@ -2573,6 +2616,7 @@ section {
   }
   
   .booking-card {
+    width: 100%;
     margin-bottom: 30px;
   }
   
@@ -2611,12 +2655,80 @@ section {
     padding: 12px;
     font-size: 0.9rem;
   }
+
+  .modal-container {
+    width: 92vw;
+    max-height: 85vh;
+  }
+
+  .modal-content {
+    padding: 24px;
+  }
+
+  /* Prevent stuck hover styles on touch screens */
+  .treatment-card:hover,
+  .specialist-card:hover,
+  .option-card:hover,
+  .btn:hover {
+    transform: none;
+    box-shadow: inherit;
+  }
+
+  /* Touch active feedback */
+  .btn:active,
+  .treatment-card:active,
+  .specialist-card:active,
+  .option-card:active {
+    opacity: 0.85;
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  @media (max-width: 640px) {
+    .treatment-grid,
+    .specialists-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .treatment-card {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-badges {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      gap: 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      grid-template-columns: none;
+    }
+    .hero-badge-card {
+      flex: 0 0 auto;
+      width: 150px;
+      scroll-snap-align: start;
+      background-color: var(--color-slate-light);
+      padding: 12px 10px;
+      border-radius: var(--radius-md);
+      gap: 8px;
+    }
+    .hero-badge-icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+    .hero-badge-title {
+      font-size: 0.85rem;
+    }
+    .hero-badge-desc {
+      font-size: 0.75rem;
+    }
+  }
 }
 
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2.4rem;
-  }
+@media (max-width: 576px) {
   .hero-ctas {
     flex-direction: column;
     width: 100%;
@@ -2624,10 +2736,28 @@ section {
   .hero-ctas .btn {
     width: 100%;
   }
-  .hero-badges {
-    grid-template-columns: 1fr;
-  }
   .option-grid {
     grid-template-columns: 1fr;
+  }
+  .floating-booking-bar {
+    padding: 10px 15px;
+    height: 70px;
+  }
+  .floating-text-info {
+    display: none; /* Hide text on small screens */
+  }
+  .floating-actions {
+    width: 100%;
+    gap: 12px;
+  }
+  .btn-floating-book {
+    flex: 1; /* Stretch to occupy the remaining space */
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9rem;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
