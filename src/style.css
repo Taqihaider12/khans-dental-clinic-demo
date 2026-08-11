@@ -547,6 +547,7 @@ section {
   position: relative;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .hero-img-container {
@@ -2476,6 +2477,11 @@ section {
     font-size: 2.2rem;
   }
   
+  .hero-title {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    line-height: 1.2;
+  }
+  
   .navbar {
     height: 70px;
   }
@@ -2704,6 +2710,8 @@ section {
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       grid-template-columns: none;
+      width: 100%;
+      max-width: 100%;
     }
     .hero-badge-card {
       flex: 0 0 auto;
@@ -2715,8 +2723,9 @@ section {
       gap: 8px;
     }
     .hero-badge-icon {
-      width: 28px;
-      height: 28px;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
       flex-shrink: 0;
     }
     .hero-badge-title {
@@ -2729,6 +2738,10 @@ section {
 }
 
 @media (max-width: 576px) {
+  .hero-title {
+    font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+    line-height: 1.2;
+  }
   .hero-ctas {
     flex-direction: column;
     width: 100%;
@@ -2759,5 +2772,17 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .newsletter-form {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .newsletter-form input {
+    width: 100%;
+  }
+  .newsletter-form button {
+    width: 100%;
+    padding: 12px;
   }
 }

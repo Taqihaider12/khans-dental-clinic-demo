@@ -885,8 +885,27 @@ const initOtherHandlers = () => {
       e.preventDefault();
       const emailInput = newsletterForm.querySelector("input[type='email']");
       if (emailInput && emailInput.value) {
-        alert(`Thank you for subscribing! We will send updates to ${emailInput.value}.`);
+        const successMsg = document.createElement("div");
+        successMsg.className = "newsletter-success";
+        successMsg.style.color = "var(--color-accent)";
+        successMsg.style.fontSize = "0.85rem";
+        successMsg.style.marginTop = "8px";
+        successMsg.style.fontWeight = "600";
+        successMsg.textContent = `Success! Subscribed ${emailInput.value} securely.`;
+        
+        // Remove existing success messages if any
+        const existing = newsletterForm.parentElement.querySelector(".newsletter-success");
+        if (existing) existing.remove();
+        
+        newsletterForm.parentElement.appendChild(successMsg);
         newsletterForm.reset();
+        
+        // Fade out message after 4 seconds
+        setTimeout(() => {
+          successMsg.style.transition = "opacity 0.5s ease";
+          successMsg.style.opacity = "0";
+          setTimeout(() => successMsg.remove(), 500);
+        }, 4000);
       }
     });
   }
