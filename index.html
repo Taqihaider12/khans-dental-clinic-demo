@@ -1,27 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Meta Tags -->
-  <title>Khan's Dental Clinic | Premier Multi-Specialty Dental Care DHA Karachi</title>
-  <meta name="description" content="Established in 1981 in DHA Karachi, Khan's Dental Clinic offers world-class multi-specialty dental care. Powered by 7 modern surgeries, digital 3D OPG, and specialist surgeons. Book your consultation today.">
-  <meta name="keywords" content="dental clinic karachi, dentist dha karachi, dental implants karachi, pediatric dentist karachi, root canal treatment karachi, veneers karachi, Dr Mumtaz Khan, Dr Urooj Mumtaz Khan">
+  <meta name="theme-color" content="#0D1527">
+  <meta name="robots" content="index, follow">
+  <title>Khan's Dental Clinic | Dentists in DHA Phase 4, Karachi since 1981</title>
+  <meta name="description" content="Family dental practice in DHA Phase 4, Gizri Boulevard. Implants, veneers, root canals, paediatric care, and conscious sedation. 7 surgeries, in-house 3D OPG. Book a consultation.">
+  <meta name="keywords" content="dental clinic DHA Karachi, dentist Gizri, dental implants Karachi, paediatric dentist Karachi, root canal DHA, veneers Karachi, Dr Mumtaz Khan, Khan's Dental Clinic">
+  <link rel="canonical" href="/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Khan's Dental Clinic">
+  <meta property="og:title" content="Khan's Dental Clinic | DHA Phase 4, Karachi">
+  <meta property="og:description" content="Multi-specialty dental care in DHA since 1981. Book a consultation at Hilltop Arcade, Gizri Boulevard.">
+  <meta property="og:image" content="/og-cover.png">
+  <meta property="og:locale" content="en_PK">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Khan's Dental Clinic | DHA Phase 4, Karachi">
+  <meta name="twitter:description" content="Dentists in DHA since 1981. Implants, paediatric care, sedation, and same-day CAD/CAM restorations.">
+  <meta name="twitter:image" content="/og-cover.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
-  
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Main Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Khan's Dental Clinic",
+    "image": "/og-cover.png",
+    "url": "/",
+    "telephone": "+92-21-35866523",
+    "email": "khansdentalclinic@gmail.com",
+    "foundingDate": "1981",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "18, Hilltop Arcade, Gizri Boulevard, Phase 4 DHA",
+      "addressLocality": "Karachi",
+      "addressRegion": "Sindh",
+      "addressCountry": "PK"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 24.8138,
+      "longitude": 67.0473
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Saturday"], "opens": "09:30", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:30", "closes": "13:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "15:00", "closes": "20:00" }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/khansdentalclinic/",
+      "https://www.instagram.com/khansdentalclinic/"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ==========================================================================
        NOTIFICATION BAR
@@ -39,7 +80,7 @@
        ========================================================================== -->
   <header class="navbar-wrapper">
     <nav class="navbar" aria-label="Main Navigation">
-      <a href="#" class="logo" id="nav-logo">
+      <a href="#home" class="logo" id="nav-logo">
         <span class="logo-crest">
           <!-- Tooth + Star Custom Crest SVG -->
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -53,6 +94,7 @@
       </a>
       
       <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
         <li><a href="#doctors" class="nav-link">Doctors</a></li>
@@ -73,6 +115,10 @@
       </ul>
 
       <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
+        </button>
         <a href="tel:02135866523" class="phone-link" aria-label="Call Clinic: (021) 35866523">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -82,7 +128,7 @@
         <button class="btn btn-primary trigger-booking" id="header-booking-btn">Book Appointment</button>
       </div>
 
-      <button class="hamburger" id="hamburger-menu" aria-label="Toggle Navigation Menu">
+      <button class="hamburger" id="hamburger-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
         <span></span>
         <span></span>
         <span></span>
@@ -90,65 +136,55 @@
     </nav>
   </header>
 
-  <!-- ==========================================================================
-       HERO SECTION
-       ========================================================================== -->
-  <section class="hero-wrapper" id="about">
+  <main id="main">
+  <section class="hero-wrapper" id="home" aria-labelledby="hero-heading">
     <div class="hero-container">
       <div class="hero-content">
-        <span class="hero-tagline">Established 1981 in DHA Karachi</span>
-        <h1 class="hero-title">World-Class Multi-Specialty <span>Dental Care</span> Since 1981</h1>
-        <p class="hero-subtitle">Comprehensive oral healthcare powered by 7 modern dental surgeries, digital 3D imaging, and a renowned team of specialists under one roof in DHA Karachi.</p>
-        
+        <p class="hero-kicker">DHA Phase 4 · Gizri Boulevard · Est. 1981</p>
+        <h1 class="hero-title" id="hero-heading">Calm, specialist dentistry on Gizri Boulevard</h1>
+        <p class="hero-subtitle">Five specialists, seven surgeries, and in-house 3D imaging — the same practice families in DHA have used for more than forty years.</p>
         <div class="hero-ctas">
-          <button class="btn btn-primary trigger-booking" id="hero-cta-primary">Schedule Consultation</button>
-          <a href="#services" class="btn btn-secondary">Explore Services</a>
+          <button type="button" class="btn btn-primary trigger-booking" id="hero-cta-primary">Book a consultation</button>
+          <a href="#services" class="btn btn-secondary">See treatments</a>
         </div>
-        
-        <div class="hero-badges">
-          <div class="hero-badge-card">
-            <div class="hero-badge-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            </div>
-            <div>
-              <div class="hero-badge-title">40+ Years</div>
-              <div class="hero-badge-desc">Clinical Excellence</div>
-            </div>
-          </div>
-          <div class="hero-badge-card">
-            <div class="hero-badge-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
-            </div>
-            <div>
-              <div class="hero-badge-title">7 Surgeries</div>
-              <div class="hero-badge-desc">Advanced Dental Operatories</div>
-            </div>
-          </div>
-          <div class="hero-badge-card">
-            <div class="hero-badge-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </div>
-            <div>
-              <div class="hero-badge-title">In-House Labs</div>
-              <div class="hero-badge-desc">3D OPG & CAD/CAM</div>
-            </div>
-          </div>
-          <div class="hero-badge-card">
-            <div class="hero-badge-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5h20s-1-2.25-2.5-3.5M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-            </div>
-            <div>
-              <div class="hero-badge-title">Sedation Care</div>
-              <div class="hero-badge-desc">Conscious Sedation Specialists</div>
-            </div>
-          </div>
-        </div>
+        <ul class="hero-proof" aria-label="Practice facts">
+          <li><strong>40+</strong> years in DHA</li>
+          <li><strong>7</strong> surgeries</li>
+          <li><strong>20,000+</strong> patients treated</li>
+        </ul>
       </div>
-      
       <div class="hero-visual">
-        <div class="hero-img-container">
-          <img src="/src/assets/clinic_hero.png" alt="Khan's Dental Clinic Modern Luxury Lobby">
-        </div>
+        <figure class="hero-frame">
+          <img src="/src/assets/clinic_hero.png" width="880" height="1100" fetchpriority="high" decoding="async" alt="Reception and waiting lounge at Khan's Dental Clinic, Hilltop Arcade, DHA Phase 4">
+          <figcaption class="hero-caption">
+            <span class="hero-live" id="clinic-open-status">Checking hours…</span>
+            <span>18, Hilltop Arcade</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-band" id="about" aria-labelledby="about-heading">
+    <div class="container about-layout">
+      <div>
+        <p class="eyebrow">The practice</p>
+        <h2 class="section-title" id="about-heading">A family clinic that grew into a multi-specialty floor</h2>
+      </div>
+      <p class="about-lead">Dr. Mumtaz A. Khan opened the doors in 1981. Today the same address holds paediatric rooms, conscious sedation, CAD/CAM ceramics, and consultants in implants and periodontics — without sending you across the city for a second opinion.</p>
+      <div class="about-stats">
+        <article>
+          <h3>Seven operatories</h3>
+          <p>Parallel chairs so check-ups, surgery, and children’s visits do not bottleneck one corridor.</p>
+        </article>
+        <article>
+          <h3>Imaging on site</h3>
+          <p>Digital 3D OPG in the building. You leave with a plan, not a referral slip for another clinic.</p>
+        </article>
+        <article>
+          <h3>Sedation when needed</h3>
+          <p>Nitrous oxide for anxious adults and children, monitored on the chair — not a hospital admission by default.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -158,8 +194,8 @@
        ========================================================================== -->
   <section class="container" id="services">
     <div class="text-center">
-      <h2 class="section-title">Smile & Treatment Finder</h2>
-      <p class="section-subtitle">Discover customized treatments tailored to your oral health and cosmetic goals. Use the filters below to explore treatments.</p>
+      <h2 class="section-title">Treatments we offer</h2>
+      <p class="section-subtitle">Filter by what you need. Times are typical, not a quote — your dentist will confirm after examination.</p>
     </div>
 
     <div class="treatment-finder">
@@ -317,8 +353,8 @@
   <div class="booking-section-wrapper" id="booking-section">
     <section>
       <div class="text-center">
-        <h2 class="section-title">Schedule Your Consultation</h2>
-        <p class="section-subtitle">Real-time scheduling system. Select your service, doctor, date/time, and receive instant clinic confirmation.</p>
+        <h2 class="section-title">Request a visit</h2>
+        <p class="section-subtitle">Choose a specialty, doctor, and slot. We will send the details to reception by WhatsApp or email so the diary can be confirmed.</p>
       </div>
 
       <div class="booking-card">
@@ -389,7 +425,7 @@
             <div class="option-grid">
               <div class="option-card" data-value="Dr. Mumtaz A. Khan">
                 <div class="doctor-avatar-small">
-                  <img src="/src/assets/doctors/dr_mumtaz.png" alt="Dr. Mumtaz A. Khan">
+                  <img loading="lazy" decoding="async" src="/src/assets/doctors/dr_mumtaz.png" alt="Dr. Mumtaz A. Khan">
                 </div>
                 <div class="option-info">
                   <span class="option-title">Dr. Mumtaz A. Khan</span>
@@ -398,7 +434,7 @@
               </div>
               <div class="option-card" data-value="Dr. Urooj Mumtaz Khan">
                 <div class="doctor-avatar-small">
-                  <img src="/src/assets/doctors/dr_urooj.png" alt="Dr. Urooj Mumtaz Khan">
+                  <img loading="lazy" decoding="async" src="/src/assets/doctors/dr_urooj.png" alt="Dr. Urooj Mumtaz Khan">
                 </div>
                 <div class="option-info">
                   <span class="option-title">Dr. Urooj Mumtaz Khan</span>
@@ -407,7 +443,7 @@
               </div>
               <div class="option-card" data-value="Prof. Dr. Yawar Ali Abidi">
                 <div class="doctor-avatar-small">
-                  <img src="/src/assets/doctors/prof_yawar.png" alt="Prof. Dr. Yawar Ali Abidi">
+                  <img loading="lazy" decoding="async" src="/src/assets/doctors/prof_yawar.png" alt="Prof. Dr. Yawar Ali Abidi">
                 </div>
                 <div class="option-info">
                   <span class="option-title">Prof. Dr. Yawar Ali Abidi</span>
@@ -416,7 +452,7 @@
               </div>
               <div class="option-card" data-value="Prof. Dr. Fazal Ur Rehman Qazi">
                 <div class="doctor-avatar-small">
-                  <img src="/src/assets/doctors/prof_fazal.png" alt="Prof. Dr. Fazal Ur Rehman Qazi">
+                  <img loading="lazy" decoding="async" src="/src/assets/doctors/prof_fazal.png" alt="Prof. Dr. Fazal Ur Rehman Qazi">
                 </div>
                 <div class="option-info">
                   <span class="option-title">Prof. Dr. Fazal Ur Rehman</span>
@@ -425,7 +461,7 @@
               </div>
               <div class="option-card" data-value="Dr. Bilal Mumtaz Khan">
                 <div class="doctor-avatar-small">
-                  <img src="/src/assets/doctors/dr_bilal.png" alt="Dr. Bilal Mumtaz Khan">
+                  <img loading="lazy" decoding="async" src="/src/assets/doctors/dr_bilal.png" alt="Dr. Bilal Mumtaz Khan">
                 </div>
                 <div class="option-info">
                   <span class="option-title">Dr. Bilal Mumtaz Khan</span>
@@ -469,30 +505,31 @@
           <div class="booking-panel" id="panel-4">
             <h3 class="panel-title">Patient Contact Details</h3>
             <form id="booking-patient-form" novalidate>
+              <div class="booking-alert" id="booking-error-summary" role="alert" tabindex="-1" hidden></div>
               <div class="form-grid">
                 <div class="form-group">
                   <label for="patient-name" class="form-label">Full Name</label>
-                  <input type="text" id="patient-name" class="form-control" placeholder="Enter full name" required>
+                  <input type="text" id="patient-name" class="form-control" name="name" autocomplete="name" placeholder="Enter full name" required maxlength="80" aria-describedby="name-error">
                   <span class="invalid-feedback" id="name-error"></span>
                 </div>
                 <div class="form-group">
                   <label for="patient-email" class="form-label">Email Address</label>
-                  <input type="email" id="patient-email" class="form-control" placeholder="example@email.com" required>
+                  <input type="email" id="patient-email" class="form-control" name="email" autocomplete="email" placeholder="example@email.com" required maxlength="120" aria-describedby="email-error">
                   <span class="invalid-feedback" id="email-error"></span>
                 </div>
                 <div class="form-group">
                   <label for="patient-phone" class="form-label">Mobile Number (PK Format)</label>
-                  <input type="tel" id="patient-phone" class="form-control" placeholder="03xx-xxxxxxx or +92-3xx-xxxxxxx" required>
+                  <input type="tel" id="patient-phone" class="form-control" name="tel" autocomplete="tel" inputmode="tel" placeholder="03xx-xxxxxxx" required maxlength="20" aria-describedby="phone-error">
                   <span class="invalid-feedback" id="phone-error"></span>
                 </div>
                 <div class="form-group">
                   <label for="patient-notes" class="form-label">Optional Notes</label>
-                  <input type="text" id="patient-notes" class="form-control" placeholder="e.g. Toothache, anxious">
+                  <input type="text" id="patient-notes" class="form-control" name="notes" autocomplete="off" maxlength="200" placeholder="e.g. Toothache, anxious">
                 </div>
                 <div class="form-group full-width">
                   <label class="checkbox-label" for="privacy-check">
                     <input type="checkbox" id="privacy-check" required>
-                    I consent to receiving appointments details on SMS/Email and agree to the clinic privacy policies.
+                    I consent to receiving appointment details by SMS or email and agree to the <a href="/privacy.html">privacy policy</a>.
                   </label>
                   <span class="invalid-feedback" id="privacy-error"></span>
                 </div>
@@ -529,7 +566,7 @@
       <div class="specialist-card" data-doctor="dr-mumtaz">
         <span class="specialist-badge">Founder</span>
         <div class="specialist-img-container">
-          <img src="/src/assets/doctors/dr_mumtaz.png" alt="Dr. Mumtaz A. Khan headshot">
+          <img loading="lazy" decoding="async" src="/src/assets/doctors/dr_mumtaz.png" alt="Dr. Mumtaz A. Khan headshot">
         </div>
         <div class="specialist-info">
           <h3 class="specialist-name">Dr. Mumtaz A. Khan</h3>
@@ -543,7 +580,7 @@
       <div class="specialist-card" data-doctor="dr-urooj">
         <span class="specialist-badge">Director</span>
         <div class="specialist-img-container">
-          <img src="/src/assets/doctors/dr_urooj.png" alt="Dr. Urooj Mumtaz Khan headshot">
+          <img loading="lazy" decoding="async" src="/src/assets/doctors/dr_urooj.png" alt="Dr. Urooj Mumtaz Khan headshot">
         </div>
         <div class="specialist-info">
           <h3 class="specialist-name">Dr. Urooj Mumtaz Khan</h3>
@@ -557,7 +594,7 @@
       <div class="specialist-card" data-doctor="prof-yawar">
         <span class="specialist-badge">Consultant</span>
         <div class="specialist-img-container">
-          <img src="/src/assets/doctors/prof_yawar.png" alt="Prof. Dr. Yawar Ali Abidi headshot">
+          <img loading="lazy" decoding="async" src="/src/assets/doctors/prof_yawar.png" alt="Prof. Dr. Yawar Ali Abidi headshot">
         </div>
         <div class="specialist-info">
           <h3 class="specialist-name">Prof. Dr. Yawar Ali Abidi</h3>
@@ -571,7 +608,7 @@
       <div class="specialist-card" data-doctor="prof-fazal">
         <span class="specialist-badge">Consultant</span>
         <div class="specialist-img-container">
-          <img src="/src/assets/doctors/prof_fazal.png" alt="Prof. Dr. Fazal Ur Rehman Qazi headshot">
+          <img loading="lazy" decoding="async" src="/src/assets/doctors/prof_fazal.png" alt="Prof. Dr. Fazal Ur Rehman Qazi headshot">
         </div>
         <div class="specialist-info">
           <h3 class="specialist-name">Prof. Dr. Fazal Ur Rehman Qazi</h3>
@@ -585,7 +622,7 @@
       <div class="specialist-card" data-doctor="dr-bilal">
         <span class="specialist-badge">Partner</span>
         <div class="specialist-img-container">
-          <img src="/src/assets/doctors/dr_bilal.png" alt="Dr. Bilal Mumtaz Khan headshot">
+          <img loading="lazy" decoding="async" src="/src/assets/doctors/dr_bilal.png" alt="Dr. Bilal Mumtaz Khan headshot">
         </div>
         <div class="specialist-info">
           <h3 class="specialist-name">Dr. Bilal Mumtaz Khan</h3>
@@ -686,7 +723,10 @@
             <span class="slider-dot" data-slide="2" aria-label="Review Slide 3"></span>
           </div>
           
-          <button class="slider-btn" id="slider-next-btn" aria-label="Next Review">
+          <button type="button" class="slider-btn" id="slider-pause-btn" aria-label="Pause reviews">
+            <svg id="slider-pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+          </button>
+          <button type="button" class="slider-btn" id="slider-next-btn" aria-label="Next Review">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
           </button>
         </div>
@@ -705,12 +745,12 @@
 
     <div class="faq-container">
       <div class="faq-item">
-        <div class="faq-header" role="button" aria-expanded="false">
+        <button type="button" class="faq-header" aria-expanded="false">
           <span class="faq-question">How do you handle dental anxiety for nervous patients?</span>
-          <span class="faq-chevron">
+          <span class="faq-chevron" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </span>
-        </div>
+        </button>
         <div class="faq-body">
           <div class="faq-content">
             We provide specialized <strong>Conscious Sedation</strong> (commonly known as laughing gas/Nitrous Oxide) to eliminate dental anxiety safely. It induces a relaxed, floating sensation, allowing both anxious children and adults to receive procedures completely stress-free under full monitoring.
@@ -719,12 +759,12 @@
       </div>
 
       <div class="faq-item">
-        <div class="faq-header" role="button" aria-expanded="false">
+        <button type="button" class="faq-header" aria-expanded="false">
           <span class="faq-question">Do you treat young children? How do you ensure their comfort?</span>
-          <span class="faq-chevron">
+          <span class="faq-chevron" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </span>
-        </div>
+        </button>
         <div class="faq-body">
           <div class="faq-content">
             Yes, we have custom child-friendly operatories specifically decorated for pediatric patients. Led by Dr. Urooj Mumtaz, our staff uses cartoons, movies, toys, and gentle clinical communication techniques to ensure children enjoy their dental visit and avoid developing clinic phobias.
@@ -733,12 +773,12 @@
       </div>
 
       <div class="faq-item">
-        <div class="faq-header" role="button" aria-expanded="false">
+        <button type="button" class="faq-header" aria-expanded="false">
           <span class="faq-question">What digital equipment and lab systems do you use?</span>
-          <span class="faq-chevron">
+          <span class="faq-chevron" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </span>
-        </div>
+        </button>
         <div class="faq-body">
           <div class="faq-content">
             Our multi-specialty practice is equipped with premium in-house <strong>digital 3D OPG imaging</strong> systems for ultra-low radiation panoramic X-Rays. We also partner with leading foreign prosthetic labs and utilize advanced CAD/CAM ceramic milling technology for same-day crown and veneer placements.
@@ -827,27 +867,20 @@
 
         <!-- Stylized Interactive Map Placeholder -->
         <div class="map-wrapper">
-          <div class="map-placeholder">
-            <div class="map-grid-overlay"></div>
-            <span class="map-placeholder-icon">📍</span>
-            <h3>DHA Gizri Boulevard Location</h3>
-            <p>18, Hilltop Arcade, Gizri Boulevard, Phase 4 DHA, Karachi</p>
-            <div style="display: flex; gap: 15px; margin-bottom: 25px;">
-              <a href="https://www.facebook.com/khansdentalclinic/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook Page">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              </a>
-              <a href="https://www.instagram.com/khansdentalclinic/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram Profile">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-            </div>
-            <a href="https://maps.google.com/?q=Hilltop+Arcade+Gizri+Boulevard+DHA+Karachi" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              Open in Google Maps
-            </a>
-          </div>
+          <iframe
+            class="map-embed"
+            title="Map of Khan's Dental Clinic, Hilltop Arcade, Gizri Boulevard, DHA Phase 4"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Hilltop%20Arcade%20Gizri%20Boulevard%20DHA%20Karachi&z=16&output=embed">
+          </iframe>
+          <a class="map-open-link" href="https://maps.google.com/?q=Hilltop+Arcade+Gizri+Boulevard+DHA+Karachi" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
         </div>
       </div>
     </section>
   </div>
+
+  </main>
 
   <!-- ==========================================================================
        9. FOOTER
@@ -855,7 +888,7 @@
   <footer class="footer-main">
     <div class="footer-grid">
       <div class="footer-info">
-        <a href="#" class="footer-logo">
+        <a href="#home" class="footer-logo">
           <span class="logo-crest">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4.5 10.5C3.5 13.5 4 16.5 6 18.5c2 2 5.5 2.5 8 1.5 1-0.5 1.5-1.5 2-2.5 0.5-1 0.5-2.5 0-3.5-0.5-1-1.5-1.5-2-2.5C13 9.5 13.5 8.5 13.5 7.5c0-1.5-1-3-2.5-3.5-1.5-0.5-3 0.5-3.5 2C7 7.5 6.5 8.5 6 9.5c-0.5 1-1 1-1.5 1Z" />
@@ -866,7 +899,7 @@
           </span>
           Khan's Dental Clinic
         </a>
-        <p class="footer-desc">Established in 1981 by Dr. Mumtaz A. Khan, we are Karachi's premier dental clinic, committed to high-end dental luxury, advanced micro-treatments, and compassionate patient care.</p>
+        <p class="footer-desc">Opened in 1981 by Dr. Mumtaz A. Khan at Hilltop Arcade, Gizri Boulevard. Specialist dentistry for families in DHA Phase 4.</p>
         
         <div class="social-links-nav" style="margin-top: 10px;">
           <a href="https://www.facebook.com/khansdentalclinic/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook Page">
@@ -902,8 +935,8 @@
     <div class="footer-bottom">
       <div>&copy; 1981 - 2026 Khan's Dental Clinic. All Rights Reserved.</div>
       <div class="footer-legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
       </div>
     </div>
   </footer>
@@ -958,8 +991,8 @@
         <div class="modal-header-icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <h3 class="modal-title" id="conf-modal-title">Appointment Confirmed</h3>
-        <p class="modal-subtitle">Your appointment has been registered in our clinic queue system.</p>
+        <h3 class="modal-title" id="conf-modal-title">Request saved</h3>
+        <p class="modal-subtitle">Send this request to reception on WhatsApp or email so they can confirm the diary.</p>
       </div>
       
       <div class="modal-content">
@@ -987,9 +1020,11 @@
           </div>
         </div>
 
-        <p style="font-size: 0.85rem; color: var(--color-text-muted); text-align: center; line-height: 1.5;">
-          A confirmation SMS has been dispatched to your mobile. Please arrive 10 minutes prior to your scheduled time slot. For questions, call (021) 35866523.
-        </p>
+        <p class="conf-note">Please arrive 10 minutes early once reception confirms. Call (021) 35866523 if you need to change the time.</p>
+        <div class="conf-actions">
+          <a class="btn btn-primary" id="conf-whatsapp-link" href="https://wa.me/922135866523" target="_blank" rel="noopener noreferrer">Send on WhatsApp</a>
+          <a class="btn btn-secondary" id="conf-email-link" href="mailto:khansdentalclinic@gmail.com">Send by email</a>
+        </div>
       </div>
     </div>
   </div>

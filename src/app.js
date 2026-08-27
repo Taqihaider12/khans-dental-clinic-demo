@@ -62,6 +62,69 @@ const CHATBOT_FAQ = {
   }
 };
 
+const prefersReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const escapeHtml = (value) => {
+  const div = document.createElement("div");
+  div.textContent = String(value ?? "");
+  return div.innerHTML;
+};
+
+const parseLocalDate = (iso) => {
+  if (!iso) return null;
+  const [y, m, d] = iso.split("-").map(Number);
+  if (!y || !m || !d) return null;
+  return new Date(y, m - 1, d);
+};
+
+const getKarachiNow = () => {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Karachi",
+    weekday: "short",
+    hour: "numeric",
+    minute: "numeric",
+    hourCycle: "h23"
+  }).formatToParts(new Date());
+  const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+  const day = map.weekday;
+  const hour = Number(map.hour);
+  const minute = Number(map.minute);
+  const mins = hour * 60 + minute;
+  return { day, mins };
+};
+
+const isClinicOpenNow = () => {
+  const { day, mins } = getKarachiNow();
+  if (day === "Sun") return false;
+  const open = 9 * 60 + 30;
+  const close = 20 * 60;
+  if (day === "Fri") {
+    return (mins >= open && mins < 13 * 60) || (mins >= 15 * 60 && mins < close);
+  }
+  return mins >= open && mins < close;
+};
+
+const trapFocus = (container) => {
+  const selector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+  const handler = (e) => {
+    if (e.key !== "Tab") return;
+    const focusable = [...container.querySelectorAll(selector)].filter((el) => el.offsetParent !== null || el === document.activeElement);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+  container.addEventListener("keydown", handler);
+  return () => container.removeEventListener("keydown", handler);
+};
+
 // ==========================================================================
 // 2. NAVIGATION & MOBILE DRAWER
 // ==========================================================================
@@ -76,32 +139,20 @@ const initNavigation = () => {
   const navLinks = document.querySelectorAll(".nav-link");
 
   if (hamburger && navMenu) {
+    const setMenu = (open) => {
+      hamburger.classList.toggle("active", open);
+      navMenu.classList.toggle("active", open);
+      hamburger.setAttribute("aria-expanded", open ? "true" : "false");
+      hamburger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+
     hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("active");
-      navMenu.classList.toggle("active");
-      
-      const spans = hamburger.querySelectorAll("span");
-      if (hamburger.classList.contains("active")) {
-        spans[0].style.transform = "rotate(45deg) translate(5deg, 5deg)";
-        spans[1].style.opacity = "0";
-        spans[2].style.transform = "rotate(-45deg) translate(6deg, -6deg)";
-      } else {
-        spans[0].style.transform = "none";
-        spans[1].style.opacity = "1";
-        spans[2].style.transform = "none";
-      }
+      setMenu(!hamburger.classList.contains("active"));
     });
 
-    navLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        navMenu.classList.remove("active");
-        
-        const spans = hamburger.querySelectorAll("span");
-        spans[0].style.transform = "none";
-        spans[1].style.opacity = "1";
-        spans[2].style.transform = "none";
-      });
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => setMenu(false));
     });
   }
 };
@@ -216,15 +267,17 @@ const initBookingEngine = () => {
 
     dateInput.addEventListener("input", (e) => {
       const selectedDateString = e.target.value;
-      const selectedDate = new Date(selectedDateString);
-      const dayOfWeek = selectedDate.getDay();
+      const selectedDate = parseLocalDate(selectedDateString);
+      const dayOfWeek = selectedDate ? selectedDate.getDay() : -1;
 
       const dateError = document.getElementById("date-error");
       dateError.textContent = "";
       dateInput.classList.remove("invalid");
 
-      if (dayOfWeek === 0) {
-        dateError.textContent = "The clinic is closed on Sundays. Please select a day from Monday to Saturday.";
+      if (dayOfWeek === 0 || !selectedDate) {
+        dateError.textContent = !selectedDate
+          ? "Please pick a valid date."
+          : "The clinic is closed on Sundays. Please select a day from Monday to Saturday.";
         dateInput.classList.add("invalid");
         state.date = null;
         state.time = null;
@@ -241,6 +294,10 @@ const initBookingEngine = () => {
   }
 
   const generateTimeSlots = (selectedDate) => {
+    if (!selectedDate) {
+      renderTimeSlots([]);
+      return;
+    }
     const day = selectedDate.getDay();
     const slots = [];
     const isFriday = (day === 5);
@@ -336,8 +393,8 @@ const initBookingEngine = () => {
     document.querySelectorAll(".invalid-feedback").forEach(el => el.textContent = "");
     document.querySelectorAll(".form-control").forEach(el => el.classList.remove("invalid"));
 
-    if (!nameInput.value || nameInput.value.trim().length < 3) {
-      document.getElementById("name-error").textContent = "Please enter your full name (minimum 3 characters).";
+    if (!nameInput.value || nameInput.value.trim().length < 3 || nameInput.value.trim().length > 80) {
+      document.getElementById("name-error").textContent = "Please enter your full name (3–80 characters).";
       nameInput.classList.add("invalid");
       isValid = false;
     }
@@ -476,12 +533,24 @@ const initBookingEngine = () => {
       updateWizardUI();
     }
     else if (state.step === 4) {
-      if (!validateForm()) return;
+      const summary = document.getElementById("booking-error-summary");
+      if (!validateForm()) {
+        if (summary) {
+          summary.hidden = false;
+          summary.textContent = "Please fix the highlighted fields, then confirm again.";
+          summary.focus();
+        }
+        return;
+      }
+      if (summary) {
+        summary.hidden = true;
+        summary.textContent = "";
+      }
 
-      state.patientName = nameInput.value;
-      state.patientEmail = emailInput.value;
-      state.patientPhone = phoneInput.value;
-      state.patientNotes = document.getElementById("patient-notes").value;
+      state.patientName = nameInput.value.trim();
+      state.patientEmail = emailInput.value.trim();
+      state.patientPhone = phoneInput.value.trim();
+      state.patientNotes = document.getElementById("patient-notes").value.trim().slice(0, 200);
 
       processBookingSubmission();
     }
@@ -495,20 +564,63 @@ const initBookingEngine = () => {
   });
 
   const processBookingSubmission = () => {
-    const refNum = Math.floor(10000 + Math.random() * 90000);
-    const refId = `KDC-${refNum}`;
+    const refId = `KDC-${Math.floor(10000 + Math.random() * 90000)}`;
+    const localDate = parseLocalDate(state.date);
+    const formattedDate = localDate
+      ? localDate.toLocaleDateString("en-GB", { weekday: "short", month: "short", day: "numeric", year: "numeric" })
+      : state.date;
 
-    document.getElementById("conf-ref-id").textContent = refId;
-    document.getElementById("conf-patient-name").textContent = state.patientName;
-    document.getElementById("conf-service").textContent = state.service;
-    document.getElementById("conf-doctor").textContent = state.doctor;
+    const payload = {
+      refId,
+      name: state.patientName,
+      email: state.patientEmail,
+      phone: state.patientPhone,
+      notes: state.patientNotes,
+      service: state.service,
+      doctor: state.doctor,
+      date: formattedDate,
+      time: state.time
+    };
 
-    const formattedDate = new Date(state.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-    document.getElementById("conf-datetime").textContent = `${formattedDate} • ${state.time}`;
+    try {
+      const previous = JSON.parse(localStorage.getItem("kdc-booking-requests") || "[]");
+      previous.push({ ...payload, createdAt: new Date().toISOString() });
+      localStorage.setItem("kdc-booking-requests", JSON.stringify(previous.slice(-20)));
+    } catch {
+      /* storage may be blocked */
+    }
+
+    document.getElementById("conf-ref-id").textContent = payload.refId;
+    document.getElementById("conf-patient-name").textContent = payload.name;
+    document.getElementById("conf-service").textContent = payload.service;
+    document.getElementById("conf-doctor").textContent = payload.doctor;
+    document.getElementById("conf-datetime").textContent = `${payload.date} • ${payload.time}`;
+
+    const message = [
+      `Appointment request ${payload.refId}`,
+      `Name: ${payload.name}`,
+      `Phone: ${payload.phone}`,
+      `Email: ${payload.email}`,
+      `Service: ${payload.service}`,
+      `Doctor: ${payload.doctor}`,
+      `When: ${payload.date} ${payload.time}`,
+      payload.notes ? `Notes: ${payload.notes}` : ""
+    ].filter(Boolean).join("\n");
+
+    const wa = document.getElementById("conf-whatsapp-link");
+    const mail = document.getElementById("conf-email-link");
+    if (wa) {
+      wa.href = `https://wa.me/922135866523?text=${encodeURIComponent(message)}`;
+    }
+    if (mail) {
+      mail.href = `mailto:khansdentalclinic@gmail.com?subject=${encodeURIComponent("Appointment request " + payload.refId)}&body=${encodeURIComponent(message)}`;
+    }
 
     const confModal = document.getElementById("confirm-modal");
     if (confModal) {
       confModal.style.display = "flex";
+      const closeBtn = document.getElementById("confirm-close-btn");
+      if (closeBtn) closeBtn.focus();
     }
 
     resetBookingWizard();
@@ -583,6 +695,7 @@ const initSpecialistBios = () => {
     }
 
     modal.style.display = "flex";
+    closeBtn.focus();
   };
 
   openBtns.forEach(btn => {
@@ -611,26 +724,24 @@ const initTestimonialsSlider = () => {
   const dots = document.querySelectorAll(".slider-dot");
   const prevBtn = document.getElementById("slider-prev-btn");
   const nextBtn = document.getElementById("slider-next-btn");
+  const pauseBtn = document.getElementById("slider-pause-btn");
 
   if (!track || dots.length === 0) return;
 
   let currentSlide = 0;
   const slideCount = dots.length;
   let autoplayTimer;
+  let paused = prefersReducedMotion();
 
   const updateSlider = (index) => {
     currentSlide = index;
     track.style.transform = `translateX(-${index * 100}%)`;
 
     dots.forEach((dot, idx) => {
-      if (idx === index) {
-        dot.classList.add("active");
-      } else {
-        dot.classList.remove("active");
-      }
+      dot.classList.toggle("active", idx === index);
     });
 
-    resetAutoplay();
+    if (!paused) resetAutoplay();
   };
 
   const nextSlide = () => {
@@ -660,13 +771,31 @@ const initTestimonialsSlider = () => {
   if (nextBtn) nextBtn.addEventListener("click", nextSlide);
 
   const startAutoplay = () => {
-    autoplayTimer = setInterval(nextSlide, 5000);
+    if (paused || prefersReducedMotion()) return;
+    autoplayTimer = setInterval(nextSlide, 8000);
   };
 
   const resetAutoplay = () => {
     clearInterval(autoplayTimer);
     startAutoplay();
   };
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener("click", () => {
+      paused = !paused;
+      pauseBtn.setAttribute("aria-label", paused ? "Play reviews" : "Pause reviews");
+      if (paused) clearInterval(autoplayTimer);
+      else startAutoplay();
+    });
+  }
+
+  const sliderRoot = document.querySelector(".testimonials-slider-container");
+  if (sliderRoot) {
+    sliderRoot.addEventListener("mouseenter", () => clearInterval(autoplayTimer));
+    sliderRoot.addEventListener("mouseleave", () => { if (!paused) startAutoplay(); });
+    sliderRoot.addEventListener("focusin", () => clearInterval(autoplayTimer));
+    sliderRoot.addEventListener("focusout", () => { if (!paused) startAutoplay(); });
+  }
 
   startAutoplay();
 };
@@ -748,7 +877,7 @@ const initChatbot = () => {
   const appendMessage = (sender, text) => {
     const bubble = document.createElement("div");
     bubble.className = `chat-bubble ${sender}`;
-    bubble.innerHTML = text;
+    bubble.textContent = text;
     messagesContainer.appendChild(bubble);
     scrollChatToBottom();
   };
@@ -833,16 +962,16 @@ const initChatbot = () => {
       return CHATBOT_FAQ.location.answer;
     }
     if (lowerText.includes("book") || lowerText.includes("appoint") || lowerText.includes("schedul") || lowerText.includes("visit") || lowerText.includes("consult")) {
-      return "To book an appointment instantly, scroll up to our **Schedule Your Consultation** wizard or click the 'Book Appointment' button in the navigation bar! You can also call us directly at (021) 35866523.";
+      return "To book a visit, use Request a visit on this page or tap Book Appointment. You can also call (021) 35866523.";
     }
     if (lowerText.includes("phone") || lowerText.includes("call") || lowerText.includes("number") || lowerText.includes("contact") || lowerText.includes("email") || lowerText.includes("gmail")) {
-      return "You can reach us by phone at **(021) 35866523**, **(021) 35822449**, or **(021) 35373123**. You can also email us at **khansdentalclinic@gmail.com**.";
+      return "Phone: (021) 35866523, (021) 35822449, or (021) 35373123. Email: khansdentalclinic@gmail.com";
     }
     if (lowerText.includes("hello") || lowerText.includes("hi") || lowerText.includes("hey") || lowerText.includes("aoa") || lowerText.includes("salam")) {
-      return "Hello! Warm greetings from Khan's Dental Clinic. How can we serve you today?";
+      return "Hello from Khan's Dental Clinic. How can we help?";
     }
     if (lowerText.includes("whatsapp") || lowerText.includes("chat") || lowerText.includes("text") || lowerText.includes("mobile")) {
-      return "You can chat directly with our Karachi reception team on WhatsApp by clicking the **Chat on WhatsApp** button in our greeting above, or click here: <a href='https://wa.me/922135866523' target='_blank' rel='noopener noreferrer' style='color:var(--color-accent-dark); font-weight:700;'>Start WhatsApp Chat</a>.";
+      return "Reception is on WhatsApp via the green button in this chat, or message +92 21 35866523.";
     }
 
     return "I'm happy to help! For appointment bookings, please use our schedule wizard or call us. If you have other questions, feel free to ask about our clinic hours, location, conscious sedation anxiety care, pediatric dental setups, or OPG equipment.";
@@ -891,7 +1020,7 @@ const initOtherHandlers = () => {
         successMsg.style.fontSize = "0.85rem";
         successMsg.style.marginTop = "8px";
         successMsg.style.fontWeight = "600";
-        successMsg.textContent = `Success! Subscribed ${emailInput.value} securely.`;
+        successMsg.textContent = `We’ll keep ${emailInput.value} for clinic updates. You can unsubscribe by emailing reception.`;
         
         // Remove existing success messages if any
         const existing = newsletterForm.parentElement.querySelector(".newsletter-success");
@@ -914,7 +1043,45 @@ const initOtherHandlers = () => {
 // ==========================================================================
 // INITIALIZE APPLICATION MODULES ON LOAD
 // ==========================================================================
+const initTheme = () => {
+  const root = document.documentElement;
+  const toggle = document.getElementById("theme-toggle");
+  const stored = localStorage.getItem("kdc-theme");
+  const initial = stored === "dark" ? "dark" : "light";
+  root.setAttribute("data-theme", initial);
+  if (toggle) {
+    toggle.setAttribute("aria-label", initial === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    toggle.addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("kdc-theme", next);
+      toggle.setAttribute("aria-label", next === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    });
+  }
+};
+
+const initClinicHours = () => {
+  const el = document.getElementById("clinic-open-status");
+  if (!el) return;
+  el.textContent = isClinicOpenNow() ? "Open now · until 8:00 PM" : "Closed now · see hours below";
+};
+
+const initOverlays = () => {
+  const overlays = document.querySelectorAll(".modal-overlay");
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    overlays.forEach((modal) => {
+      if (modal.style.display === "flex") modal.style.display = "none";
+    });
+    const panel = document.getElementById("chatbot-panel");
+    const closeBtn = document.getElementById("chatbot-close");
+    if (panel && panel.style.display === "flex" && closeBtn) closeBtn.click();
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  initClinicHours();
   initNavigation();
   initTreatmentFinder();
   initBookingEngine();
@@ -923,4 +1090,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initFaqAccordion();
   initChatbot();
   initOtherHandlers();
+  initOverlays();
 });
